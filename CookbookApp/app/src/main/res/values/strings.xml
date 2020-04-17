@@ -4,4 +4,9 @@
     <string name="intro_img_desc">Intro Image</string>
     <string name="registration">Register</string>
     <string name="login">Sign In</string>
+    <string name="search">Look up Recipes</string>
+    <string name="search_filter_category">Search by Category</string>
+    <string name="search_filter_cuisine">Search by Cuisine</string>
+    <string name="category_items">Category Items:</string>
+    <string name="cuisine_items">Cuisine Items:</string>
 </resources>

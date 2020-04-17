@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lookup_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor"
+    tools:context=".LookupActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_vert_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_vert_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <RadioGroup
+        android:id="@+id/rgroup_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h_mid_one"
+        app:layout_constraintEnd_toStartOf="@+id/gl_vert_right"
+        app:layout_constraintStart_toStartOf="@+id/gl_vert_left"
+        app:layout_constraintTop_toTopOf="@+id/gl_h_top">
+
+        <RadioButton
+            android:id="@+id/radio_btn_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/search_filter_category"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/radio_btn_cuisine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_filter_cuisine"></RadioButton>
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.21" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.42" />
+
+    <TextView
+        android:id="@+id/textview_filter_items"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/category_items"
+        app:fontFamily="@font/aldrich"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h_mid_three"
+        app:layout_constraintEnd_toStartOf="@+id/gl_vert_right"
+        app:layout_constraintStart_toStartOf="@+id/gl_vert_left"
+        app:layout_constraintTop_toTopOf="@+id/gl_h_mid_two" />
+
+    <Spinner
+        android:id="@+id/spinner_items"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h_mid_five"
+        app:layout_constraintEnd_toStartOf="@+id/gl_vert_right"
+        app:layout_constraintStart_toStartOf="@+id/gl_vert_left"
+        app:layout_constraintTop_toTopOf="@+id/gl_h_mid_four" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

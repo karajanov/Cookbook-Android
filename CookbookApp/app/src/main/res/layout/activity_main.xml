@@ -46,7 +46,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/title"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:fontFamily="@font/aldrich"
         app:layout_constraintBottom_toTopOf="@+id/gl_mid_one"
         app:layout_constraintEnd_toStartOf="@+id/gl_right"
@@ -97,12 +97,12 @@
         app:layout_constraintGuide_percent="0.55" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_register"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="@string/registration"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toTopOf="@+id/gl_mid_five"
         app:layout_constraintEnd_toStartOf="@+id/gl_right"
         app:layout_constraintStart_toStartOf="@+id/gl_left"
@@ -117,14 +117,23 @@
         app:layout_constraintGuide_percent="0.6" />
 
     <Button
-        android:id="@+id/button2"
-        style="@style/Widget.AppCompat.Button"
+        android:id="@+id/btn_lookup"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_height="0dp"
+        android:text="@string/search"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/gl_mid_seven"
         app:layout_constraintEnd_toStartOf="@+id/gl_right"
         app:layout_constraintStart_toStartOf="@+id/gl_left"
         app:layout_constraintTop_toTopOf="@+id/gl_mid_six" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_mid_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.68"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
