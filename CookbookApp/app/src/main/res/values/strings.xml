@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CookbookApp</string>
+    <string name="title">Cookbook</string>
+    <string name="intro_img_desc">Intro Image</string>
+    <string name="registration">Register</string>
+    <string name="login">Sign In</string>
+</resources>
