@@ -9,4 +9,8 @@
     <string name="search_filter_cuisine">Search by Cuisine</string>
     <string name="category_items">Category Items:</string>
     <string name="cuisine_items">Cuisine Items:</string>
+    <string name="search_two">Search</string>
+    <string name="recipe_title">Title</string>
+    <string name="recipe_author">User</string>
+    <string name="cardview_image_recipe">Recipe Image</string>
 </resources>

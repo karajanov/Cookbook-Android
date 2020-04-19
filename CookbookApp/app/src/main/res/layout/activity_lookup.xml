@@ -97,13 +97,14 @@
 
     <TextView
         android:id="@+id/textview_filter_items"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category_items"
         app:fontFamily="@font/aldrich"
         app:layout_constraintBottom_toTopOf="@+id/gl_h_mid_three"
-        app:layout_constraintEnd_toStartOf="@+id/gl_vert_right"
-        app:layout_constraintStart_toStartOf="@+id/gl_vert_left"
+        app:layout_constraintEnd_toStartOf="@+id/btn_search_recipe"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gl_h_mid_two" />
 
     <Spinner
@@ -114,5 +115,70 @@
         app:layout_constraintEnd_toStartOf="@+id/gl_vert_right"
         app:layout_constraintStart_toStartOf="@+id/gl_vert_left"
         app:layout_constraintTop_toTopOf="@+id/gl_h_mid_four" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.44" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="369dp"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <ProgressBar
+        android:id="@+id/progressbar_one"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h_mid_seven"
+        app:layout_constraintEnd_toStartOf="@+id/gl_vert_right"
+        app:layout_constraintStart_toStartOf="@+id/gl_vert_left"
+        app:layout_constraintTop_toTopOf="@+id/gl_h_mid_six" />
+
+    <Button
+        android:id="@+id/btn_search_recipe"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_two"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h_mid_three"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textview_filter_items"
+        app:layout_constraintTop_toTopOf="@+id/gl_h_mid_two" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_mid_eight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_recipe"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorRecycleView"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/gl_vert_right"
+        app:layout_constraintStart_toStartOf="@+id/gl_vert_left"
+        app:layout_constraintTop_toTopOf="@+id/gl_h_mid_eight" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
