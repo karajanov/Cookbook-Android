@@ -13,4 +13,6 @@
     <string name="recipe_title">Title</string>
     <string name="recipe_author">User</string>
     <string name="cardview_image_recipe">Recipe Image</string>
+    <string name="recipe_preptime">Prep Time</string>
+    <string name="recipe_details">Instructions and Ingredients</string>
 </resources>

@@ -6,13 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
+import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdapter.RecipeViewHolder> {
@@ -20,10 +16,15 @@ public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdap
 
     private Context context;
     private List<RecipePreview> recipePreviewItemsList;
+    private OnItemClickListener clickListener;
 
     public RecipePreviewAdapter(Context context, List<RecipePreview> recipePreviewItemsList) {
         this.context = context;
         this.recipePreviewItemsList = recipePreviewItemsList;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        clickListener = listener;
     }
 
     @NonNull
@@ -44,17 +45,15 @@ public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdap
         String author = currentItem.getAuthor();
         String imagePath = currentItem.getImagePath();
 
-        holder.textViewRecipeId.setText(""+id);
+        holder.textViewRecipeId.setText(String.valueOf(id));
         holder.textViewRecipeTitle.setText(title);
         holder.textViewRecipeAuthor.setText("by " + author);
 
-        if(imagePath == null) {
-            holder.imageViewRecipe
-                    .setImageResource(R.mipmap.ic_launcher);
-        } else {
-            Picasso.with(context)
+        if(imagePath != null) {
+            Glide.with(context)
                     .load(IMAGE_API_URL + imagePath)
-                    .fit()
+                    .error(R.drawable.notfound)
+                    .fitCenter()
                     .centerInside()
                     .into(holder.imageViewRecipe);
         }
@@ -76,6 +75,22 @@ public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdap
             textViewRecipeId = (TextView) itemView.findViewById(R.id.text_view_recipe_id);
             textViewRecipeTitle = (TextView) itemView.findViewById(R.id.text_view_recipe_title);
             textViewRecipeAuthor = (TextView) itemView.findViewById(R.id.text_view_recipe_author);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(clickListener != null) {
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            clickListener.onItemClick(position, recipePreviewItemsList);
+                        }
+                    }
+                }
+            });
         }
+    }
+
+    public interface  OnItemClickListener {
+        void onItemClick(int position, List<RecipePreview> recipePreviewList);
     }
 }

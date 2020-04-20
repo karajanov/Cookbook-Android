@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,9 +31,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LookupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class LookupActivity extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener, RecipePreviewAdapter.OnItemClickListener {
 
     public static final String RECIPES_API_BASE = "http://localhost:5000/api/";
+    public static final String EXTRA_RECIPE_ID = "com.example.cookbookapp.EXTRA_RECIPE_ID";
+    public static final String EXTRA_RECIPE_TITLE = "com.example.cookbookapp.EXTRA_RECIPE_TITLE";
 
     private RadioGroup radioGroupFilter;
     private TextView groupLabel;
@@ -43,7 +47,7 @@ public class LookupActivity extends AppCompatActivity implements AdapterView.OnI
     private Button buttonSearh;
     private RecyclerView recyclerViewRecipe;
     private RecipePreviewAdapter recipePreviewAdapter;
-    private String selectedFilter = "";
+    private String selectedFilter = "category";
     private String selectedSpinnerItem = "";
 
     @Override
@@ -177,8 +181,12 @@ public class LookupActivity extends AppCompatActivity implements AdapterView.OnI
                     Log.e(getLocalClassName(), "addFilterItems -> status: " + response.code());
                     return;
                 }
+                if(response.body().size() == 0) {
+                    Toast.makeText(LookupActivity.this, "No recipes found", Toast.LENGTH_SHORT).show();
+                }
                 recipePreviewAdapter = new RecipePreviewAdapter(LookupActivity.this, response.body());
                 recyclerViewRecipe.setAdapter(recipePreviewAdapter);
+                recipePreviewAdapter.setOnItemClickListener(LookupActivity.this);
                 progressBar.setVisibility(View.GONE);
             }
 
@@ -199,5 +207,14 @@ public class LookupActivity extends AppCompatActivity implements AdapterView.OnI
                 addItemsToRecyclerView(selectedFilter, selectedSpinnerItem);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position, List<RecipePreview> recipePreviewList) {
+        Intent intent = new Intent(LookupActivity.this, DetailsActivity.class);
+        RecipePreview clickedItem = recipePreviewList.get(position);
+        intent.putExtra(EXTRA_RECIPE_ID, clickedItem.getId());
+        intent.putExtra(EXTRA_RECIPE_TITLE, clickedItem.getTitle());
+        startActivity(intent);
     }
 }
