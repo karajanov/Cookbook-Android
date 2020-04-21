@@ -25,4 +25,13 @@ public interface IRecipesApi {
 
     @GET("Measurement/Recipe/{id}")
     Call<List<RecipeMeasurement>> getRecipeMeasurementsById(@Path("id") int recipeId);
+
+    @GET("Recipe/Exact")
+    Call<List<RecipePreview>> getRecipePreviewByExactTitle(@Query("title") String title);
+
+    @GET("Recipe/Contains")
+    Call<List<RecipePreview>> getRecipePreviewThatContainsKey(@Query("key") String key);
+
+    @GET("Recipe/Starts")
+    Call<List<RecipePreview>> getRecipePreviewThatStartsWithKey(@Query("key") String key);
 }

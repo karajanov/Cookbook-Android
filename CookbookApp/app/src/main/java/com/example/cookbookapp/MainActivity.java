@@ -3,6 +3,8 @@ package com.example.cookbookapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.GradientDrawable;
@@ -16,21 +18,24 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button registerBtn, lookupBtn;
+    private Button registerBtn, lookupBtn, secondLookupBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initialization
-        lookupBtn = (Button) findViewById(R.id.btn_lookup);
-
         //Preventing landscape orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        //Initialization
+        registerBtn = (Button) findViewById(R.id.btn_register);
+        lookupBtn = (Button) findViewById(R.id.btn_lookup);
+        secondLookupBtn = (Button) findViewById(R.id.btn_lookup_two);
+
         //Event handlers
         addLookupEventHandler();
+        addSecondLookupEventHandler();
     }
 
     @Override // Embedding the menu in the activity
@@ -61,14 +66,25 @@ public class MainActivity extends AppCompatActivity {
         lookupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLookupActivity();
+                openActivity(LookupActivity.class);
             }
         });
     }
 
-    //Open the lookup activity
-    private void openLookupActivity() {
-        Intent intent = new Intent(this, LookupActivity.class);
+    private void addSecondLookupEventHandler() {
+        if(secondLookupBtn == null)
+            return;
+
+        secondLookupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(SecondLookupActivity.class);
+            }
+        });
+    }
+
+    private void openActivity(Class<?> dest) {
+        Intent intent = new Intent(MainActivity.this, dest);
         startActivity(intent);
     }
 }

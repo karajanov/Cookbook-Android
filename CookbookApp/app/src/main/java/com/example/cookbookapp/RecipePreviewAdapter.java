@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdapter.RecipeViewHolder> {
-    public static final String IMAGE_API_URL = "http://localhost:5000/images/";
 
     private Context context;
     private List<RecipePreview> recipePreviewItemsList;
@@ -51,7 +50,7 @@ public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdap
 
         if(imagePath != null) {
             Glide.with(context)
-                    .load(IMAGE_API_URL + imagePath)
+                    .load(Helper.IMAGE_API_URL + imagePath)
                     .error(R.drawable.notfound)
                     .fitCenter()
                     .centerInside()

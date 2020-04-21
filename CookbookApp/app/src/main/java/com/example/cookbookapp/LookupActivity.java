@@ -1,19 +1,10 @@
 package com.example.cookbookapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,11 +13,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +24,6 @@ import retrofit2.Response;
 public class LookupActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener, RecipePreviewAdapter.OnItemClickListener {
 
-    public static final String RECIPES_API_BASE = "http://localhost:5000/api/";
     public static final String EXTRA_RECIPE_ID = "com.example.cookbookapp.EXTRA_RECIPE_ID";
     public static final String EXTRA_RECIPE_TITLE = "com.example.cookbookapp.EXTRA_RECIPE_TITLE";
 
@@ -66,7 +55,7 @@ public class LookupActivity extends AppCompatActivity
         recyclerViewRecipe = (RecyclerView) findViewById(R.id.recycler_view_recipe);
         buttonSearh = (Button) findViewById(R.id.btn_search_recipe);
         rb = new RetrofitBuilder();
-        recipesApiRef = rb.getBuilder(RECIPES_API_BASE).create(IRecipesApi.class);
+        recipesApiRef = rb.getBuilder(Helper.RECIPES_API_BASE).create(IRecipesApi.class);
 
         //Event handlers
         addRadioGroupEventHandler();
@@ -78,26 +67,6 @@ public class LookupActivity extends AppCompatActivity
         addSearchEventHandler();
 
     }
-
-    // <MENU>
-    @Override // Embedding the menu in the activity
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.general, menu);
-        return true;
-    }
-
-    @Override // Event handler for selecting a menu item
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.general_login_item:
-                //
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    // </MENU>
 
     // <SPINNER>
     @Override // When an item from the spinner is selected - event handler

@@ -5,6 +5,7 @@
     android:id="@+id/details_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".DetailsActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.13" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_mid_h_three"
@@ -66,13 +67,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.22" />
+        app:layout_constraintGuide_percent="0.19" />
 
     <TextView
         android:id="@+id/text_view_details_preptime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/recipe_preptime"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gl_mid_h_three"
         app:layout_constraintEnd_toStartOf="@+id/gl_right_v"
         app:layout_constraintStart_toStartOf="@+id/gl_left_v"
@@ -84,7 +86,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_mid_h_five"
@@ -92,7 +94,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.32" />
+        app:layout_constraintGuide_percent="0.31" />
 
     <ProgressBar
         android:id="@+id/progressBar_details"
@@ -110,7 +112,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_mid_h_seven"
@@ -118,13 +120,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.41" />
+        app:layout_constraintGuide_percent="0.27" />
 
     <TextView
         android:id="@+id/text_view_details_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/recipe_details"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gl_mid_h_seven"
         app:layout_constraintEnd_toStartOf="@+id/gl_right_v"
         app:layout_constraintStart_toStartOf="@+id/gl_left_v"
@@ -136,15 +139,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.44" />
+        app:layout_constraintGuide_percent="0.33" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_bottom_h"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.95" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -158,7 +161,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/text_view_details_scrollable"

@@ -41,7 +41,7 @@ public class DetailsActivity extends AppCompatActivity {
         textViewDetails =(TextView) findViewById(R.id.text_view_details_scrollable);
         progressBar = (ProgressBar) findViewById(R.id.progressBar_details);
         rb = new RetrofitBuilder();
-        recipesApiRef = rb.getBuilder(LookupActivity.RECIPES_API_BASE).create(IRecipesApi.class);
+        recipesApiRef = rb.getBuilder(Helper.RECIPES_API_BASE).create(IRecipesApi.class);
 
         Intent intent = getIntent();
         setRecipeId(intent, LookupActivity.EXTRA_RECIPE_ID);
@@ -66,9 +66,9 @@ public class DetailsActivity extends AppCompatActivity {
                 }
 
                 RecipeDetails recipeDetails = response.body();
-                textViewPrep.setText(recipeDetails.getPrepTime());
+                textViewPrep.setText("Prep Time: " + recipeDetails.getPrepTime());
 
-                String instructions = "\nInstructions:\n";
+                String instructions = "\nINSTRUCTIONS:\n\n";
                 textViewDetails.append(instructions + recipeDetails.getInstructions() + "\n");
                 progressBar.setVisibility(View.GONE);
             }
@@ -92,16 +92,16 @@ public class DetailsActivity extends AppCompatActivity {
                     return;
                 }
 
-                String ingredients = "\nIngredient - Quantity - Consistency";
+                String ingredientsScheme = "\n\nINGREDIENT -QUANTITY- CONSISTENCY\n\n";
+                textViewDetails.append(ingredientsScheme);
                 List<RecipeMeasurement> recipeMsList = response.body();
                 for(RecipeMeasurement rm : recipeMsList) {
-                    String m = "\n"
-                            + rm.getIngredient() + " - "
-                            + rm.getQuantity() + " - "
+                    String m =  rm.getIngredient() + " -"
+                            + rm.getQuantity() + "- "
                             + rm.getConsistency() + "\n";
                     textViewDetails.append(m);
                 }
-                progressBar.setVisibility(View.GONE);
+               progressBar.setVisibility(View.GONE);
             }
 
             @Override

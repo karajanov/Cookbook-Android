@@ -4,7 +4,8 @@
     <string name="intro_img_desc">Intro Image</string>
     <string name="registration">Register</string>
     <string name="login">Sign In</string>
-    <string name="search">Look up Recipes</string>
+    <string name="lookup_one">Search by Category</string>
+    <string name="lookup_two">Search by Title</string>
     <string name="search_filter_category">Search by Category</string>
     <string name="search_filter_cuisine">Search by Cuisine</string>
     <string name="category_items">Category Items:</string>
@@ -15,4 +16,8 @@
     <string name="cardview_image_recipe">Recipe Image</string>
     <string name="recipe_preptime">Prep Time</string>
     <string name="recipe_details">Instructions and Ingredients</string>
+    <string name="search_filter_start">Starts With</string>
+    <string name="search_filter_exact">Exact Title</string>
+    <string name="search_filter_contains">Contains</string>
+    <string name="edit_text_search_hint">Enter search term ..</string>
 </resources>
