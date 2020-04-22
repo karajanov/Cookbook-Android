@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -60,11 +61,11 @@ implements RecipePreviewAdapter.OnItemClickListener {
         recipesApiRef = rb.getBuilder(Helper.RECIPES_API_BASE).create(IRecipesApi.class);
 
         //Event Handlers
+        progressBar.setVisibility(View.GONE);
         addRadioGroupEventHandler();
         addSearchButtonEventHandler();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void addRadioGroupEventHandler() {
@@ -91,9 +92,10 @@ implements RecipePreviewAdapter.OnItemClickListener {
             @Override
             public void onClick(View v) {
                 String searchTerm = editTextSearch.getText().toString();
+                hideKeyboard();
+                Helper.removeFocus(editTextSearch);
                 if(!TextUtils.isEmpty(searchTerm)) {
-                    hideKeyboard();
-                    Helper.removeFocus(editTextSearch);
+                    progressBar.setVisibility(View.VISIBLE);
                     displayRecipePreviews(searchTerm);
                 }
             }
@@ -146,5 +148,10 @@ implements RecipePreviewAdapter.OnItemClickListener {
     @Override
     public void onItemClick(int position, List<RecipePreview> recipePreviewList) {
 
+        Intent intent = new Intent(SecondLookupActivity.this, DetailsActivity.class);
+        RecipePreview clickedItem = recipePreviewList.get(position);
+        intent.putExtra(LookupActivity.EXTRA_RECIPE_ID, clickedItem.getId());
+        intent.putExtra(LookupActivity.EXTRA_RECIPE_TITLE, clickedItem.getTitle());
+        startActivity(intent);
     }
 }

@@ -19,5 +19,13 @@
     <string name="search_filter_start">Starts With</string>
     <string name="search_filter_exact">Exact Title</string>
     <string name="search_filter_contains">Contains</string>
-    <string name="edit_text_search_hint">Enter search term ..</string>
+    <string name="edit_text_search_hint">Your search term</string>
+    <string name="Email">Email:</string>
+    <string name="register_email">Enter your email</string>
+    <string name="Username">Username:</string>
+    <string name="register_username">Enter a username</string>
+    <string name="Password">Password</string>
+    <string name="register_password">Enter a password</string>
+    <string name="RePassword">Re - Password</string>
+    <string name="register_re">Retype password</string>
 </resources>

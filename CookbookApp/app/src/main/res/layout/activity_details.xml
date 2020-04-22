@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_right_v"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top_h"
@@ -46,6 +46,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/recipe_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/background_dark"
+        android:textColorLink="@android:color/black"
         android:textSize="18sp"
         app:fontFamily="@font/aldrich"
         app:layout_constraintBottom_toTopOf="@+id/gl_mid_h"

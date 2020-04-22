@@ -61,7 +61,6 @@ public class LookupActivity extends AppCompatActivity
         addRadioGroupEventHandler();
         addFilterItems("category", itemSpinner);
         itemSpinner.setOnItemSelectedListener(this);
-        progressBar.setVisibility(View.VISIBLE);
         recyclerViewRecipe.setHasFixedSize(true);
         recyclerViewRecipe.setLayoutManager(new LinearLayoutManager(this));
         addSearchEventHandler();

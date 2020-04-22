@@ -13,12 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".RegistrationActivity"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+        <activity
             android:name=".SecondLookupActivity"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".DetailsActivity"
-            android:parentActivityName=".LookupActivity" />
+            android:parentActivityName=".LookupActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SecondLookupActivity" />
+        </activity>
         <activity
             android:name=".LookupActivity"
             android:parentActivityName=".MainActivity" />

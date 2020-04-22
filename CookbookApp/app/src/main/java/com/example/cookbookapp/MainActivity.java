@@ -34,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
         secondLookupBtn = (Button) findViewById(R.id.btn_lookup_two);
 
         //Event handlers
-        addLookupEventHandler();
-        addSecondLookupEventHandler();
+         addRedirectEventHandler(registerBtn, RegistrationActivity.class);
+         addRedirectEventHandler(lookupBtn, LookupActivity.class);
+         addRedirectEventHandler(secondLookupBtn, SecondLookupActivity.class);
     }
 
     @Override // Embedding the menu in the activity
@@ -58,27 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Event handler for the lookup btn
-    private void addLookupEventHandler() {
-        if(lookupBtn == null)
+    private void addRedirectEventHandler(final Button b, final Class<?> dest) {
+        if(b == null)
             return;
 
-        lookupBtn.setOnClickListener(new View.OnClickListener() {
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(LookupActivity.class);
-            }
-        });
-    }
-
-    private void addSecondLookupEventHandler() {
-        if(secondLookupBtn == null)
-            return;
-
-        secondLookupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivity(SecondLookupActivity.class);
+                openActivity(dest);
             }
         });
     }
