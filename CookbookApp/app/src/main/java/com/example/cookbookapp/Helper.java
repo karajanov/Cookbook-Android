@@ -3,6 +3,7 @@ package com.example.cookbookapp;
 import android.text.TextUtils;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,6 +11,8 @@ public class Helper {
 
     public static final String RECIPES_API_BASE = "http://localhost:5000/api/";
     public static final String IMAGE_API_URL = "http://localhost:5000/images/";
+    public static final int MIN_USERNAME_LENGTH = 3;
+    public static final int MIN_PASSWORD_LENGTH = 8;
 
     public static void removeFocus(EditText editText) {
         editText.setFocusableInTouchMode(false);
@@ -30,16 +33,43 @@ public class Helper {
         editText.setError(null);
     }
 
-    public static boolean isEmailValid(String email) {
+    public static boolean isEmailValid(EditText editTextEmail) {
+        if(editTextEmail == null) return false;
+        String email = editTextEmail.getText().toString();
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-    public static Boolean isFieldEmpty(EditText editText) {
-        if(editText == null)
-            return null;
+    public static boolean isFieldEmpty(EditText editText) {
+        if(editText == null) return true;
         return TextUtils.isEmpty(editText.getText().toString());
+    }
+
+    public static void performEmptyFieldCheck(ArrayList<EditText> editTextList) {
+        if(editTextList == null) return;
+        for(EditText et : editTextList) {
+            if(isFieldEmpty(et)) {
+               displayErrorMessage(et, "Empty field not allowed");
+            } else {
+               clearErrorField(et);
+            }
+        }
+    }
+
+    public static boolean areAllFieldsFilledIn(ArrayList<EditText> editTextList) {
+        if(editTextList == null) return false;
+        for(EditText et: editTextList) {
+            if(isFieldEmpty(et)) {
+              return false;
+            }
+        }
+        return true;
+    }
+
+    public static int getFieldLength(EditText editText) {
+        if(editText == null) return -1;
+        return editText.getText().toString().length();
     }
 }

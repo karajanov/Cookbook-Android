@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,23 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmRegistrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performEmptyFieldCheck();
+               Helper.performEmptyFieldCheck(editTextList);
+               if(Helper.areAllFieldsFilledIn(editTextList)) {
+                   boolean isEmailValid = Helper.isEmailValid(editTextEmail);
+                   if(!isEmailValid) {
+                       Helper.displayErrorMessage(editTextEmail, "Invalid email");
+                       return;
+                   } else {
+                       Helper.clearErrorField(editTextEmail);
+                   }
+                   if(Helper.getFieldLength(editTextUsername) < Helper.MIN_USERNAME_LENGTH) {
+                       Helper.displayErrorMessage(editTextUsername, "Min Length is 3");
+                       return;
+                   }else {
+                       Helper.clearErrorField(editTextUsername);
+                   }
+                   //p length
+               }
             }
         });
     }
@@ -56,14 +73,6 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextList.add(editTextRe);
     }
 
-    private void performEmptyFieldCheck() {
-        for(EditText et : editTextList) {
-            if(Helper.isFieldEmpty(et)) {
-                Helper.displayErrorMessage(et, "Empty field not allowed");
-            } else {
-                Helper.clearErrorField(et);
-            }
-        }
-    }
+
 
 }

@@ -39,7 +39,7 @@
         android:text="@string/Email"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toTopOf="@+id/mid_one"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vert_right"
         app:layout_constraintStart_toStartOf="@+id/vert_left"
         app:layout_constraintTop_toTopOf="@+id/h_top" />
 
@@ -74,8 +74,10 @@
         android:ems="10"
         android:hint="@string/register_email"
         android:inputType="textEmailAddress"
+        android:maxLength="32"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/mid_three"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vert_right"
         app:layout_constraintStart_toStartOf="@+id/vert_left"
         app:layout_constraintTop_toTopOf="@+id/mid_two" />
 
@@ -102,7 +104,7 @@
         android:text="@string/Username"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toTopOf="@+id/mid_five"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vert_right"
         app:layout_constraintStart_toStartOf="@+id/vert_left"
         app:layout_constraintTop_toTopOf="@+id/mid_four" />
 
@@ -129,6 +131,8 @@
         android:ems="10"
         android:hint="@string/register_username"
         android:inputType="textPersonName"
+        android:maxLength="20"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/mid_seven"
         app:layout_constraintEnd_toStartOf="@+id/vert_right"
         app:layout_constraintStart_toStartOf="@+id/vert_left"
@@ -176,6 +180,7 @@
         android:ems="10"
         android:hint="@string/register_password"
         android:inputType="textPassword"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/mid_eleven"
         app:layout_constraintEnd_toStartOf="@+id/vert_right"
         app:layout_constraintStart_toStartOf="@+id/vert_left"
@@ -239,6 +244,7 @@
         android:ems="10"
         android:hint="@string/register_re"
         android:inputType="textPassword"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/mid_fifteen"
         app:layout_constraintEnd_toStartOf="@+id/vert_right"
         app:layout_constraintStart_toStartOf="@+id/vert_left"
