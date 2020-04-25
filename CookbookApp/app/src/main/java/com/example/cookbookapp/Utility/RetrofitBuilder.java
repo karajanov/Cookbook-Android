@@ -1,4 +1,4 @@
-package com.example.cookbookapp;
+package com.example.cookbookapp.Utility;
 
 import android.text.TextUtils;
 

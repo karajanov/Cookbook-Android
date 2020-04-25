@@ -10,6 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cookbookapp.Interfaces.IRecipesApi;
+import com.example.cookbookapp.Models.RecipeDetails;
+import com.example.cookbookapp.Models.RecipeMeasurement;
+import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.RetrofitBuilder;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -76,7 +82,6 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RecipeDetails> call, Throwable t) {
                 Log.e(getLocalClassName(), t.getMessage());
-                return;
             }
         });
     }

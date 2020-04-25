@@ -1,4 +1,4 @@
-package com.example.cookbookapp;
+package com.example.cookbookapp.Models;
 
 public class RecipePreview {
     private int id;

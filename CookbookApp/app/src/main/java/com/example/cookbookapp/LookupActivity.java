@@ -13,10 +13,19 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.cookbookapp.Interfaces.IRecipesApi;
+import com.example.cookbookapp.Models.RecipePreview;
+import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.RecipePreviewAdapter;
+import com.example.cookbookapp.Utility.RetrofitBuilder;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -122,7 +131,6 @@ public class LookupActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
                 Log.e(getLocalClassName(), t.getMessage());
-                return;
             }
         });
     }
@@ -161,7 +169,6 @@ public class LookupActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<RecipePreview>> call, Throwable t) {
                 Log.e(getLocalClassName(), t.getMessage());
-                return;
             }
         });
     }

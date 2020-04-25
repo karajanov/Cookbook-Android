@@ -1,10 +1,5 @@
 package com.example.cookbookapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,18 +7,20 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.cookbookapp.Interfaces.IRecipesApi;
+import com.example.cookbookapp.Models.RecipePreview;
+import com.example.cookbookapp.Utility.*;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -140,7 +137,6 @@ implements RecipePreviewAdapter.OnItemClickListener {
             @Override
             public void onFailure(Call<List<RecipePreview>> call, Throwable t) {
                 Log.e(getLocalClassName(), t.getMessage());
-                return;
             }
         });
     }

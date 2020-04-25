@@ -1,5 +1,6 @@
-package com.example.cookbookapp;
+package com.example.cookbookapp.Interfaces;
 
+import com.example.cookbookapp.Models.*;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;

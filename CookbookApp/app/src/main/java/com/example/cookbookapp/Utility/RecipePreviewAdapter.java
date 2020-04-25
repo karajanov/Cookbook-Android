@@ -1,4 +1,4 @@
-package com.example.cookbookapp;
+package com.example.cookbookapp.Utility;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.cookbookapp.Models.RecipePreview;
+import com.example.cookbookapp.R;
+
 import java.util.List;
 
 public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdapter.RecipeViewHolder> {
