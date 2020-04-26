@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category_items"
-        app:fontFamily="@font/aldrich"
+        app:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toTopOf="@+id/gl_h_mid_three"
         app:layout_constraintEnd_toStartOf="@+id/btn_search_recipe"
         app:layout_constraintHorizontal_bias="0.5"

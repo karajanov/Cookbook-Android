@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookbookapp.Interfaces.IUserApi;
 import com.example.cookbookapp.Models.User;
+import com.example.cookbookapp.Models.VerificationResponse;
 import com.example.cookbookapp.Utility.Helper;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 
@@ -88,7 +89,7 @@ public class RegistrationActivity extends AppCompatActivity {
 //                            .show();
 //                }
                 User u = new User("karajanovb@yahoo.com", "borjan", "doesthiswork?");
-                regUser(u);
+                postUser(u);
             }
 
         });
@@ -105,6 +106,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if(isReadyArr == null) {
             return;
         }
+        isReadyArr[0] = false;
         Call<Boolean> call;
         int editTextId = editText.getId();
 
@@ -131,11 +133,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 if(isTaken) {
                     Helper.displayErrorMessage(editText, editText.getText().toString() + " is taken");
                     isReadyArr[0] = false;
-                } else if(!isTaken){
+                } else {
                     Helper.clearErrorField(editText);
                     isReadyArr[0] = true;
-                } else {
-                    isReadyArr[0] = null;
                 }
             }
             @Override
@@ -146,22 +146,32 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private void regUser(User u) {
+    private void postUser(User u) {
         if(u == null) {
             return;
         }
-        Call<Integer> call = userApiRef.registerUser(u);
+        Call<VerificationResponse> call = userApiRef.verifyUser(u);
 
-        call.enqueue(new Callback<Integer>() {
+        call.enqueue(new Callback<VerificationResponse>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
+            public void onResponse(Call<VerificationResponse> call, Response<VerificationResponse> response) {
 
-                Toast.makeText(RegistrationActivity.this, "" + response.code(), Toast.LENGTH_SHORT)
-                        .show();
+                if(!response.isSuccessful()) {
+                    Log.e(getLocalClassName(), "postUser, status code: " + response.code());
+                    return;
+                }
+
+                VerificationResponse vr = response.body();
+
+                if(!vr.isValid()) {
+                    Log.e(getLocalClassName(),vr.getStatusCode() + " - " + vr.getErrorMessage());
+                    return;
+                }
+
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(Call<VerificationResponse> call, Throwable t) {
                 Log.e(getLocalClassName(), t.getMessage());
             }
         });
