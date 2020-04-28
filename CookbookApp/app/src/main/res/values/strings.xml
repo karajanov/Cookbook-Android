@@ -30,4 +30,5 @@
     <string name="register_re">Retype password</string>
     <string name="enter_verification_code">Enter your verification code:</string>
     <string name="confirm_registration">CONFIRM</string>
+    <string name="verification_info">A verification code will be sent to: </string>
 </resources>

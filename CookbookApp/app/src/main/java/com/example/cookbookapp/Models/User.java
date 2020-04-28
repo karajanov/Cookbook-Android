@@ -1,12 +1,26 @@
 package com.example.cookbookapp.Models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String email;
 
     private String username;
 
     private String plainPassword;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPlainPassword() {
+        return plainPassword;
+    }
 
     public User(String email, String username, String plainPassword) {
         this.email = email;

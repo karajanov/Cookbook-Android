@@ -23,6 +23,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -30,7 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
     private String recipeTitle = null;
     private TextView textViewTitle, textViewPrep, textViewDetails;
     private ProgressBar progressBar;
-    private RetrofitBuilder rb;
+    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef;
 
     @Override
@@ -46,8 +47,7 @@ public class DetailsActivity extends AppCompatActivity {
         textViewPrep = (TextView) findViewById(R.id.text_view_details_preptime);
         textViewDetails =(TextView) findViewById(R.id.text_view_details_scrollable);
         progressBar = (ProgressBar) findViewById(R.id.progressBar_details);
-        rb = new RetrofitBuilder();
-        recipesApiRef = rb.getBuilder(Helper.RECIPES_API_BASE).create(IRecipesApi.class);
+        recipesApiRef = rb.create(IRecipesApi.class);
 
         Intent intent = getIntent();
         setRecipeId(intent, LookupActivity.EXTRA_RECIPE_ID);

@@ -1,7 +1,8 @@
 package com.example.cookbookapp.Interfaces;
 
 import com.example.cookbookapp.Models.User;
-import com.example.cookbookapp.Models.VerificationResponse;
+import com.example.cookbookapp.Models.VerificationStatus;
+import com.example.cookbookapp.Models.VerificationRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,6 +18,9 @@ public interface IUserApi {
     @GET("User/Availability/Email/{email}")
     Call<Boolean> isEmailTaken(@Path("email") String email);
 
-    @POST("User")
-    Call<VerificationResponse> verifyUser(@Body User userViewModel);
+    @POST("User/Verification")
+    Call<VerificationStatus> verifyUser(@Body User userViewModel);
+
+    @POST("User/Registration")
+    Call<VerificationStatus> registerUser(@Body VerificationRequest request);
 }

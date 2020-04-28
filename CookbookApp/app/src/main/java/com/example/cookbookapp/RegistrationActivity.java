@@ -1,5 +1,6 @@
 package com.example.cookbookapp;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookbookapp.Interfaces.IUserApi;
 import com.example.cookbookapp.Models.User;
-import com.example.cookbookapp.Models.VerificationResponse;
+import com.example.cookbookapp.Models.VerificationStatus;
 import com.example.cookbookapp.Utility.Helper;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 
@@ -21,16 +22,17 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class RegistrationActivity extends AppCompatActivity {
+
+    public static final String EXTRA_USER = "com.example.cookbookapp.EXTRA_USER";
 
     private EditText editTextEmail, editTextUsername, editTextPassword, editTextRe;
     private ArrayList<EditText> editTextList;
     private Button confirmRegistrationBtn;
-    private RetrofitBuilder rb;
-    private IUserApi userApiRef;
-    private final Boolean[] isUsernameValidArr = { false };
-    private final Boolean[] isEmailValidArr =  { false };
+    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private IUserApi userApiRef = rb.create(IUserApi.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,6 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextRe = (EditText) findViewById(R.id.edit_text_register_re);
         editTextList = new ArrayList<EditText>();
         confirmRegistrationBtn = (Button) findViewById(R.id.btn_confirm_reg);
-        rb = new RetrofitBuilder();
-        userApiRef = rb.getBuilder(Helper.RECIPES_API_BASE).create(IUserApi.class);
 
         //Event handlers
         addFieldsToList();
@@ -62,34 +62,18 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmRegistrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!Helper.hasEmptyFieldTestPassed(editTextList))
-//                    return;
-//                if (!Helper.hasEmailTestPassed(editTextEmail))
-//                    return;
-//                if (!Helper.hasMinLengthTestPassed(editTextUsername, Helper.MIN_USERNAME_LENGTH))
-//                    return;
-//                if (!Helper.hasMinLengthTestPassed(editTextPassword, Helper.MIN_PASSWORD_LENGTH))
-//                    return;
-//                if (!Helper.hasPasswordMatchTestPassed(editTextPassword, editTextRe))
-//                    return;
-//
-//                checkAvailability(editTextEmail, isEmailValidArr);
-//                checkAvailability(editTextUsername, isUsernameValidArr);
-//
-//                if(isEmailValidArr[0] == null || isUsernameValidArr[0] == null) {
-//                    String errMsg = "An error occurred, try again later";
-//                    Toast.makeText(RegistrationActivity.this, errMsg, Toast.LENGTH_SHORT)
-//                            .show();
-//                } else if(isEmailValidArr[0] && isUsernameValidArr[0]) {
-//                    Toast.makeText(RegistrationActivity.this, "g2g", Toast.LENGTH_SHORT)
-//                            .show();
-//                } else {
-//                    String infoMsg = "Processing info, wait, then try again.";
-//                    Toast.makeText(RegistrationActivity.this, infoMsg, Toast.LENGTH_SHORT)
-//                            .show();
-//                }
-                User u = new User("karajanovb@yahoo.com", "borjan", "doesthiswork?");
-                postUser(u);
+                if (!Helper.hasEmptyFieldTestPassed(editTextList))
+                    return;
+                if (!Helper.hasEmailTestPassed(editTextEmail))
+                    return;
+                if (!Helper.hasMinLengthTestPassed(editTextUsername, Helper.MIN_USERNAME_LENGTH))
+                    return;
+                if (!Helper.hasMinLengthTestPassed(editTextPassword, Helper.MIN_PASSWORD_LENGTH))
+                    return;
+                if (!Helper.hasPasswordMatchTestPassed(editTextPassword, editTextRe))
+                    return;
+
+                checkEmailAvailability();
             }
 
         });
@@ -102,79 +86,96 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextList.add(editTextRe);
     }
 
-    private void checkAvailability(final EditText editText, final Boolean[] isReadyArr) {
-        if(isReadyArr == null) {
-            return;
-        }
-        isReadyArr[0] = false;
-        Call<Boolean> call;
-        int editTextId = editText.getId();
+    private void checkEmailAvailability() {
+        Call<Boolean> call = userApiRef.isEmailTaken(editTextEmail.getText().toString());
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(!response.isSuccessful()) {
+                    Log.e(getLocalClassName(), "checkEmailAvailability: status code " + response.code());
+                    return;
+                }
+                Boolean isTaken = response.body();
+                if(isTaken == null || isTaken) {
+                    Helper.displayErrorMessage(editTextEmail,
+                            editTextEmail.getText().toString() + " is taken");
+                } else {
+                    Helper.clearErrorField(editTextEmail);
+                    checkUsernameAvailability();
+                }
+            }
 
-        switch (editTextId) {
-            case R.id.edit_text_reg_email:
-                call = userApiRef.isEmailTaken(editText.getText().toString());
-                break;
-            case R.id.edit_text_reg_username:
-                call = userApiRef.isUsernameTaken(editText.getText().toString());
-                break;
-            default:
-                return;
-        }
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.e(getLocalClassName(), t.getMessage());
+            }
+        });
+    }
 
+    private void checkUsernameAvailability() {
+        Call<Boolean> call = userApiRef.isUsernameTaken(editTextUsername.getText().toString());
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(!response.isSuccessful()) {
                     Log.e(getLocalClassName(), "checkUsernameAvailability: status code " + response.code());
-                    isReadyArr[0] = null;
                     return;
                 }
                 Boolean isTaken = response.body();
-                if(isTaken) {
-                    Helper.displayErrorMessage(editText, editText.getText().toString() + " is taken");
-                    isReadyArr[0] = false;
+                if(isTaken == null || isTaken) {
+                    Helper.displayErrorMessage(editTextUsername, editTextUsername.getText().toString() + " is taken");
                 } else {
-                    Helper.clearErrorField(editText);
-                    isReadyArr[0] = true;
+                    Helper.clearErrorField(editTextUsername);
+                    String email = editTextEmail.getText().toString();
+                    String username = editTextUsername.getText().toString();
+                    String password = editTextPassword.getText().toString();
+                    User user = new User(email, username, password);
+                    postUser(user);
                 }
             }
+
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 Log.e(getLocalClassName(), t.getMessage());
-                isReadyArr[0] = null;
+            }
+        });
+
+    }
+
+    private void postUser(final User u) {
+        if(u == null) {
+            return;
+        }
+        Call<VerificationStatus> call = userApiRef.verifyUser(u);
+
+        call.enqueue(new Callback<VerificationStatus>() {
+            @Override
+            public void onResponse(Call<VerificationStatus> call, Response<VerificationStatus> response) {
+                if(!response.isSuccessful()) {
+                    Log.e(getLocalClassName(), "postUser, status code: " + response.code());
+                    Toast.makeText(RegistrationActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                VerificationStatus vr = response.body();
+                if(!vr.isValid()) {
+                    Log.e(getLocalClassName(),vr.getStatusCode() + " - " + vr.getErrorMessage());
+                    Toast.makeText(RegistrationActivity.this, vr.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(VerificationActivity.class, u);
+                }
+            }
+            @Override
+            public void onFailure(Call<VerificationStatus> call, Throwable t) {
+                Log.e(getLocalClassName(), t.getMessage());
+                Toast.makeText(RegistrationActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void postUser(User u) {
-        if(u == null) {
-            return;
-        }
-        Call<VerificationResponse> call = userApiRef.verifyUser(u);
-
-        call.enqueue(new Callback<VerificationResponse>() {
-            @Override
-            public void onResponse(Call<VerificationResponse> call, Response<VerificationResponse> response) {
-
-                if(!response.isSuccessful()) {
-                    Log.e(getLocalClassName(), "postUser, status code: " + response.code());
-                    return;
-                }
-
-                VerificationResponse vr = response.body();
-
-                if(!vr.isValid()) {
-                    Log.e(getLocalClassName(),vr.getStatusCode() + " - " + vr.getErrorMessage());
-                    return;
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<VerificationResponse> call, Throwable t) {
-                Log.e(getLocalClassName(), t.getMessage());
-            }
-        });
+    private void startActivity(Class<?> dest, User u) {
+        Intent intent = new Intent(RegistrationActivity.this, dest);
+        intent.putExtra(EXTRA_USER, u);
+        startActivity(intent);
     }
 
 }

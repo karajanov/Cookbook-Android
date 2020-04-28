@@ -24,6 +24,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SecondLookupActivity extends AppCompatActivity
 implements RecipePreviewAdapter.OnItemClickListener {
@@ -35,7 +36,7 @@ implements RecipePreviewAdapter.OnItemClickListener {
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private int selectedFilter = 1;
-    private RetrofitBuilder rb;
+    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef;
     private RecipePreviewAdapter recipePreviewAdapter;
 
@@ -54,8 +55,7 @@ implements RecipePreviewAdapter.OnItemClickListener {
         buttonSearch = (Button) findViewById(R.id.btn_title_search);
         progressBar = (ProgressBar) findViewById(R.id.progressBar_three);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_two);
-        rb = new RetrofitBuilder();
-        recipesApiRef = rb.getBuilder(Helper.RECIPES_API_BASE).create(IRecipesApi.class);
+        recipesApiRef = rb.create(IRecipesApi.class);
 
         //Event Handlers
         progressBar.setVisibility(View.GONE);

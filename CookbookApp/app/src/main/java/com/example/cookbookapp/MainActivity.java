@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
          addRedirectEventHandler(registerBtn, RegistrationActivity.class);
          addRedirectEventHandler(lookupBtn, LookupActivity.class);
          addRedirectEventHandler(secondLookupBtn, SecondLookupActivity.class);
+         displayRegistrationMessage();
     }
 
     @Override // Embedding the menu in the activity
@@ -74,5 +75,14 @@ public class MainActivity extends AppCompatActivity {
     private void openActivity(Class<?> dest) {
         Intent intent = new Intent(MainActivity.this, dest);
         startActivity(intent);
+    }
+    
+    private void displayRegistrationMessage() {
+        Intent intent = getIntent();
+        String newUser = intent.getStringExtra(VerificationActivity.EXTRA_REGISTRATION_OK);
+        if(newUser != null) {
+            Toast.makeText(MainActivity.this, "Successfully registered as " + newUser, Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 }

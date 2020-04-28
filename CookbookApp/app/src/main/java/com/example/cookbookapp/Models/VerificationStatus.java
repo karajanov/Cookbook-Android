@@ -1,6 +1,6 @@
 package com.example.cookbookapp.Models;
 
-public class VerificationResponse {
+public class VerificationStatus {
 
     private boolean isValid;
 

@@ -29,6 +29,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class LookupActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener, RecipePreviewAdapter.OnItemClickListener {
@@ -39,7 +40,7 @@ public class LookupActivity extends AppCompatActivity
     private RadioGroup radioGroupFilter;
     private TextView groupLabel;
     private Spinner itemSpinner;
-    private RetrofitBuilder rb;
+    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef;
     private ProgressBar progressBar;
     private Button buttonSearh;
@@ -63,8 +64,7 @@ public class LookupActivity extends AppCompatActivity
         progressBar = (ProgressBar) findViewById(R.id.progressbar_one);
         recyclerViewRecipe = (RecyclerView) findViewById(R.id.recycler_view_recipe);
         buttonSearh = (Button) findViewById(R.id.btn_search_recipe);
-        rb = new RetrofitBuilder();
-        recipesApiRef = rb.getBuilder(Helper.RECIPES_API_BASE).create(IRecipesApi.class);
+        recipesApiRef = rb.create(IRecipesApi.class);
 
         //Event handlers
         addRadioGroupEventHandler();

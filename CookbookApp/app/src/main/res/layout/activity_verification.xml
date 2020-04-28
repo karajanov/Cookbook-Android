@@ -97,7 +97,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <Button
-        android:id="@+id/btn_confirm_registration"
+        android:id="@+id/btn_send_verification_code"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,4 +107,13 @@
         app:layout_constraintEnd_toStartOf="@+id/vertical_right_gl"
         app:layout_constraintStart_toStartOf="@+id/vertical_left_gl"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/text_view_verif_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/verification_info"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_right_gl"
+        app:layout_constraintStart_toStartOf="@+id/vertical_left_gl"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 </androidx.constraintlayout.widget.ConstraintLayout>
