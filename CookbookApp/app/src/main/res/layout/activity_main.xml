@@ -101,11 +101,11 @@
         android:id="@+id/btn_register"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:shadowColor="#000E0D0D"
         android:text="@string/registration"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@android:color/primary_text_light"
         app:layout_constraintBottom_toTopOf="@+id/gl_mid_five"
         app:layout_constraintEnd_toStartOf="@+id/gl_right"
         app:layout_constraintStart_toStartOf="@+id/gl_left"
@@ -123,9 +123,10 @@
         android:id="@+id/btn_lookup"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:text="@string/lookup_one"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/primary_text_light"
         app:layout_constraintBottom_toTopOf="@+id/gl_mid_seven"
         app:layout_constraintEnd_toStartOf="@+id/gl_right"
         app:layout_constraintStart_toStartOf="@+id/gl_left"
@@ -152,19 +153,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.76"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.76" />
 
     <Button
         android:id="@+id/btn_lookup_two"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:text="@string/lookup_two"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toTopOf="@+id/gl_nine"
         app:layout_constraintEnd_toStartOf="@+id/gl_right"
         app:layout_constraintStart_toStartOf="@+id/gl_left"
         app:layout_constraintTop_toTopOf="@+id/gl_eight" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_ten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.78" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_eleven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.87"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <Button
+        android:id="@+id/btn_my_recipes"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_recipes"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/background_dark"
+        app:layout_constraintBottom_toTopOf="@+id/gl_eleven"
+        app:layout_constraintEnd_toStartOf="@+id/gl_right"
+        app:layout_constraintStart_toStartOf="@+id/gl_left"
+        app:layout_constraintTop_toTopOf="@+id/gl_ten" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

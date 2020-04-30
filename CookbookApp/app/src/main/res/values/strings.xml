@@ -24,11 +24,15 @@
     <string name="register_email">Enter your email</string>
     <string name="Username">Username:</string>
     <string name="register_username">Enter a username</string>
+    <string name="login_username">Enter your username</string>
     <string name="Password">Password</string>
     <string name="register_password">Enter a password</string>
+    <string name="login_password">Enter your password</string>
     <string name="RePassword">Re - Password</string>
     <string name="register_re">Retype password</string>
     <string name="enter_verification_code">Enter your verification code:</string>
     <string name="confirm_registration">CONFIRM</string>
     <string name="verification_info">A verification code will be sent to: </string>
+    <string name="my_recipes">MY RECIPES</string>
+    <string name="log_off">Log Off</string>
 </resources>

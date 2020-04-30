@@ -6,4 +6,9 @@
         android:id="@+id/general_login_item"
         android:title="@string/login"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/general_logoff_item"
+        android:title="@string/log_off"
+        app:showAsAction="ifRoom"/>
 </menu>

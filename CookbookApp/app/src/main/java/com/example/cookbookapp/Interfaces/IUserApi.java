@@ -1,5 +1,6 @@
 package com.example.cookbookapp.Interfaces;
 
+import com.example.cookbookapp.Models.LoginCredentials;
 import com.example.cookbookapp.Models.User;
 import com.example.cookbookapp.Models.VerificationStatus;
 import com.example.cookbookapp.Models.VerificationRequest;
@@ -23,4 +24,8 @@ public interface IUserApi {
 
     @POST("User/Registration")
     Call<VerificationStatus> registerUser(@Body VerificationRequest request);
+
+    @POST("User/Validation")
+    Call<Boolean> checkLoginCredentials(@Body LoginCredentials lc);
+
 }
