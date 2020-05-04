@@ -101,4 +101,17 @@ public class Helper {
         clearErrorField(editTextRe);
         return true;
     }
+
+    public static boolean hasOptionalFieldMinLengthTestPassed(EditText editText, int minLength) {
+        if(editText == null) {
+            return false;
+        }
+        if(isFieldEmpty(editText)) {
+           return true;
+        }
+        if(!hasMinLengthTestPassed(editText, minLength)) {
+            return false;
+        }
+        return true;
+    }
 }
