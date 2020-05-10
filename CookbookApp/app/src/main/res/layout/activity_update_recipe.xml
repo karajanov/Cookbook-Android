@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/update_recipe_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor"
+    tools:context=".UpdateRecipeActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_view_update_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_title"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp"
+                app:fontFamily="sans-serif" />
+
+            <EditText
+                android:id="@+id/edit_text_update_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/insert_title"
+                android:inputType="textPersonName"
+                android:maxLength="30"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/text_view_update_prep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_preptime"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp"
+                app:fontFamily="sans-serif" />
+
+            <EditText
+                android:id="@+id/edit_text_update_prep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/insert_prep"
+                android:inputType="textPersonName"
+                android:maxLength="15"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/text_view_update_cuisine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cuisine"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_text_update_cuisine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/insert_cuisine"
+                android:inputType="textPersonName"
+                android:maxLength="25"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/text_view_update_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/category"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_text_update_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/insert_category"
+                android:inputType="textPersonName"
+                android:maxLength="25"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/text_view_update_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/image"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_update_image"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/choose_image"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <Button
+                    android:id="@+id/btn_clear_image"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remove_image"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/texti_view_update_instr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/instructions"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_text_ml_update_instr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/enter_instructions"
+                android:inputType="textMultiLine"
+                android:maxLength="800" />
+
+            <Button
+                android:id="@+id/btn_reset_instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reset_instructions" />
+
+            <Button
+                android:id="@+id/btn_confirm_insert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/insert" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

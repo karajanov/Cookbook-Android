@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cookbookapp.Utility.UserSession;
 
@@ -29,9 +30,13 @@ public class UserRecipesActivity extends AppCompatActivity {
         textViewUserRecipes = (TextView) findViewById(R.id.text_view_user_recipes);
         insertDestBtn = (Button) findViewById(R.id.btn_insert_new_recipes);
         editDestBtn = (Button) findViewById(R.id.btn_edit_recipes);
+        Intent intent = getIntent();
 
         displayUsernameInTextView();
+        displayEditMessageIfNecessary(intent, InsertRecipesActivity.EXTRA_INSERT_SUCCESS);
+        displayEditMessageIfNecessary(intent, DeleteRecipeActivity.EXTRA_DELETE_SUCCESS);
         redirectToActivity(insertDestBtn, InsertRecipesActivity.class);
+        redirectToActivity(editDestBtn, EditPreviewActivity.class);
     }
 
     private void displayUsernameInTextView() {
@@ -54,4 +59,10 @@ public class UserRecipesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void displayEditMessageIfNecessary(Intent intent, String key) {
+        String msg = intent.getStringExtra(key);
+        if(msg != null) {
+            Toast.makeText(UserRecipesActivity.this, msg, Toast.LENGTH_LONG).show();
+        }
+    }
 }

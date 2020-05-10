@@ -114,4 +114,14 @@ public class Helper {
         }
         return true;
     }
+
+    public static String setToNullIfEmpty(String s) {
+        if(s == null){
+            return null;
+        }
+        if(s.length() == 0) {
+            return null;
+        }
+        return s;
+    }
 }

@@ -20,9 +20,9 @@ public class RetrofitBuilder {
 
         if(builder == null) {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(25, TimeUnit.SECONDS)
-                    .readTimeout(20, TimeUnit.SECONDS)
-                    .writeTimeout(15, TimeUnit.SECONDS)
+                    .connectTimeout(35, TimeUnit.SECONDS)
+                    .readTimeout(35, TimeUnit.SECONDS)
+                    .writeTimeout(40, TimeUnit.SECONDS)
                     .build();
 
             builder = new Retrofit.Builder()

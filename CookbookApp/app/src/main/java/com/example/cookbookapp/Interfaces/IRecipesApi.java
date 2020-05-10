@@ -8,6 +8,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -45,10 +46,16 @@ public interface IRecipesApi {
     @GET("Recipe/Starts")
     Call<List<RecipePreview>> getRecipePreviewThatStartsWithKey(@Query("key") String key);
 
+    @GET("Recipe/Author/{name}")
+    Call<List<RecipePreview>> getRecipePreviewByAuthor(@Path("name") String name);
+
     @Multipart
     @POST("Recipe/Insert")
-    Call<Boolean> insertRecipe(
+    Call<RegularStatus> insertRecipe(
             @Part("rawRecipe") RequestBody rawRecipe,
             @Part("rawMeasurements") RequestBody rawMeasurements,
             @Part MultipartBody.Part image);
+
+    @DELETE("Recipe/Delete/{id}")
+    Call<RegularStatus> deleteRecipe(@Path("id") int id);
 }

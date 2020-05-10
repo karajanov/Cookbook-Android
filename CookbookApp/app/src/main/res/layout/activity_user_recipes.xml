@@ -39,7 +39,7 @@
         android:gravity="center"
         android:text="@string/my_recipes"
         android:textColor="@android:color/background_dark"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_m1"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
