@@ -31,12 +31,6 @@ public interface IRecipesApi {
     @GET("Recipe/Cuisine")
     Call<List<RecipePreview>> getRecipePreviewByCuisine(@Query("item") String item);
 
-    @GET("Recipe/Details/{id}")
-    Call<RecipeDetails> getRecipeDetailsById(@Path("id") int recipeId);
-
-    @GET("Measurement/Recipe/{id}")
-    Call<List<RecipeMeasurement>> getRecipeMeasurementsById(@Path("id") int recipeId);
-
     @GET("Recipe/Exact")
     Call<List<RecipePreview>> getRecipePreviewByExactTitle(@Query("title") String title);
 
@@ -48,6 +42,12 @@ public interface IRecipesApi {
 
     @GET("Recipe/Author/{name}")
     Call<List<RecipePreview>> getRecipePreviewByAuthor(@Path("name") String name);
+
+    @GET("Recipe/Full/{id}")
+    Call<FullRecipeInfo> getFullRecipeInfoById(@Path("id") int id);
+
+    @GET("Measurement/Recipe/{id}")
+    Call<List<Measurement>> getRecipeMeasurementsById(@Path("id") int recipeId);
 
     @Multipart
     @POST("Recipe/Insert")

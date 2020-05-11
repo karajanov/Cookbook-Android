@@ -1,5 +1,6 @@
 package com.example.cookbookapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cookbookapp.Interfaces.IUserApi;
@@ -129,8 +131,22 @@ public class RegistrationActivity extends AppCompatActivity {
                     String email = editTextEmail.getText().toString();
                     String username = editTextUsername.getText().toString();
                     String password = editTextPassword.getText().toString();
-                    User user = new User(email, username, password);
-                    postUser(user);
+                    final User user = new User(email, username, password);
+                    AlertDialog.Builder adBuilder = new AlertDialog.Builder(RegistrationActivity.this);
+                    adBuilder.setTitle(R.string.registration_dialog_title);
+                    adBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            postUser(user);
+                        }
+                    });
+                    adBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog ad = adBuilder.create();
+                    ad.show();
                 }
             }
 

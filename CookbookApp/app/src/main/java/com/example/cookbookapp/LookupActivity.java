@@ -73,7 +73,6 @@ public class LookupActivity extends AppCompatActivity
         recyclerViewRecipe.setHasFixedSize(true);
         recyclerViewRecipe.setLayoutManager(new LinearLayoutManager(this));
         addSearchEventHandler();
-
     }
 
     // <SPINNER>

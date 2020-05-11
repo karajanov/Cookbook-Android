@@ -1,6 +1,7 @@
 package com.example.cookbookapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -259,12 +261,26 @@ public class InsertRecipesActivity extends AppCompatActivity {
                         .getText()
                         .toString());
                 String instructions = editTextInstructions.getText().toString();
-                Recipe recipe = new Recipe(
+               final Recipe recipe = new Recipe(
                         recipeTitle, prep,
                         cuisine, category,
                         instructions, currentUser
                 );
-                confirmRecipeInsertion(recipe, msList);
+                AlertDialog.Builder adBuilder = new AlertDialog.Builder(InsertRecipesActivity.this);
+                adBuilder.setTitle(R.string.insert_dialog_title);
+                adBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        confirmRecipeInsertion(recipe, msList);
+                    }
+                });
+                adBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog ad = adBuilder.create();
+                ad.show();
             }
         });
     }

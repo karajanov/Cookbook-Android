@@ -1,6 +1,9 @@
 package com.example.cookbookapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -11,12 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookbookapp.Interfaces.IRecipesApi;
-import com.example.cookbookapp.Models.RecipeDetails;
-import com.example.cookbookapp.Models.RecipeMeasurement;
+import com.example.cookbookapp.Models.FullRecipeInfo;
+import com.example.cookbookapp.Models.Measurement;
 import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.MeasurementAdapter;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -28,11 +30,13 @@ import retrofit2.Retrofit;
 public class DetailsActivity extends AppCompatActivity {
 
     private int recipeId;
-    private String recipeTitle = null;
-    private TextView textViewTitle, textViewPrep, textViewDetails;
-    private ProgressBar progressBar;
+    private TextView textViewTitle, textViewPrep,
+            textViewCuisine, textViewCategory,
+            textViewInstructions, textViewMeasurements;
+    private RecyclerView recyclerViewMeasurements;
+    private MeasurementAdapter measurementAdapter;
     private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
-    private IRecipesApi recipesApiRef;
+    private IRecipesApi recipesApiRef = rb.create(IRecipesApi.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,83 +49,77 @@ public class DetailsActivity extends AppCompatActivity {
         //Initialization
         textViewTitle = (TextView) findViewById(R.id.text_view_details_title);
         textViewPrep = (TextView) findViewById(R.id.text_view_details_preptime);
-        textViewDetails =(TextView) findViewById(R.id.text_view_details_scrollable);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar_details);
-        recipesApiRef = rb.create(IRecipesApi.class);
-
+        textViewCuisine = (TextView) findViewById(R.id.text_view_details_cuisine);
+        textViewCategory = (TextView) findViewById(R.id.text_view_details_category);
+        textViewInstructions =(TextView) findViewById(R.id.text_view_details_instructions);
+        textViewMeasurements = (TextView) findViewById(R.id.text_view_details_measurements);
+        recyclerViewMeasurements = (RecyclerView) findViewById(R.id.recycler_view_details_measurements);
         Intent intent = getIntent();
-        setRecipeId(intent, LookupActivity.EXTRA_RECIPE_ID);
-        setRecipeTitle(intent, LookupActivity.EXTRA_RECIPE_TITLE);
+        recipeId = intent.getIntExtra(LookupActivity.EXTRA_RECIPE_ID, 0);
 
-        textViewTitle.setText(recipeTitle);
-        textViewDetails.setText("");
-        progressBar.setVisibility(View.VISIBLE);
-        setRecipeDetails();
-        setIngredients();
+        recyclerViewMeasurements.setHasFixedSize(true);
+        recyclerViewMeasurements.setLayoutManager(new LinearLayoutManager(this));
+        setRecipeInfo();
+        setMeasurements();
     }
 
-    private void setRecipeDetails() {
-        Call<RecipeDetails>  call = recipesApiRef.getRecipeDetailsById(recipeId);
-
-        call.enqueue(new Callback<RecipeDetails>() {
+    private void setRecipeInfo() {
+        Call<FullRecipeInfo> call = recipesApiRef.getFullRecipeInfoById(recipeId);
+        call.enqueue(new Callback<FullRecipeInfo>() {
             @Override
-            public void onResponse(Call<RecipeDetails> call, Response<RecipeDetails> response) {
+            public void onResponse(Call<FullRecipeInfo> call, Response<FullRecipeInfo> response) {
                 if(!response.isSuccessful()) {
-                    Log.e(getLocalClassName(), "setRecipeDetails -> status code: " + response.code());
+                    Log.e(getLocalClassName(), "setRecipeInfo in DetailsActivity: status code " + response.code());
+                    String msg = "Info could not be obtained, try again later.";
+                    Toast.makeText(DetailsActivity.this, msg, Toast.LENGTH_LONG).show();
                     return;
                 }
+                FullRecipeInfo fullRecipeInfo = response.body();
+                String title = fullRecipeInfo.getTitle();
+                String prep = fullRecipeInfo.getPrepTime();
+                String cuisine = fullRecipeInfo.getCuisineTitle();
+                String category = fullRecipeInfo.getCategoryTitle();
+                String instructions = fullRecipeInfo.getInstructions();
 
-                RecipeDetails recipeDetails = response.body();
-                textViewPrep.setText("Prep Time: " + recipeDetails.getPrepTime());
-
-                String instructions = "\nINSTRUCTIONS:\n\n";
-                textViewDetails.append(instructions + recipeDetails.getInstructions() + "\n");
-                progressBar.setVisibility(View.GONE);
+                textViewTitle.setText("Title: " + title);
+                textViewPrep.setText("Prep Time: " + prep);
+                textViewCuisine.setText("Cuisine: " + cuisine);
+                textViewCategory.setText("Category: " + category);
+                textViewInstructions.setText(instructions);
             }
-
             @Override
-            public void onFailure(Call<RecipeDetails> call, Throwable t) {
+            public void onFailure(Call<FullRecipeInfo> call, Throwable t) {
                 Log.e(getLocalClassName(), t.getMessage());
+                String msg = "Info could not be obtained due to server issues";
+                Toast.makeText(DetailsActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void setIngredients() {
-        Call<List<RecipeMeasurement>> call = recipesApiRef.getRecipeMeasurementsById(recipeId);
+    private void setMeasurements() {
+      Call<List<Measurement>> call = recipesApiRef.getRecipeMeasurementsById(recipeId);
+      call.enqueue(new Callback<List<Measurement>>() {
+          @Override
+          public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
+              if(!response.isSuccessful()) {
+                  Log.e(getLocalClassName(), "setMeasurements in DetailsActivity: status code " + response.code());
+                  String msg = "Measurements could not be obtained, try again later.";
+                  Toast.makeText(DetailsActivity.this, msg, Toast.LENGTH_LONG).show();
+                  return;
+              }
+              List<Measurement> measurementList = response.body();
+              textViewMeasurements.setText("Measurements: " + measurementList.size());
+              measurementAdapter = new MeasurementAdapter(DetailsActivity.this, measurementList);
+              recyclerViewMeasurements.setAdapter(measurementAdapter);
+          }
 
-        call.enqueue(new Callback<List<RecipeMeasurement>>() {
-            @Override
-            public void onResponse(Call<List<RecipeMeasurement>> call, Response<List<RecipeMeasurement>> response) {
-                if(!response.isSuccessful()) {
-                    Log.e(getLocalClassName(), "setIngredients -> status code: " + response.code());
-                    return;
-                }
+          @Override
+          public void onFailure(Call<List<Measurement>> call, Throwable t) {
+              Log.e(getLocalClassName(), t.getMessage());
+              String msg = "Measurements could not be obtained due to server issues";
+              Toast.makeText(DetailsActivity.this, msg, Toast.LENGTH_LONG).show();
+          }
+      });
 
-                String ingredientsScheme = "\n\nINGREDIENT -QUANTITY- CONSISTENCY\n\n";
-                textViewDetails.append(ingredientsScheme);
-                List<RecipeMeasurement> recipeMsList = response.body();
-                for(RecipeMeasurement rm : recipeMsList) {
-                    String m =  rm.getIngredient() + " -"
-                            + rm.getQuantity() + "- "
-                            + rm.getConsistency() + "\n";
-                    textViewDetails.append(m);
-                }
-               progressBar.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(Call<List<RecipeMeasurement>> call, Throwable t) {
-                Log.e(getLocalClassName(), t.getMessage());
-                return;
-            }
-        });
-    }
-
-    private void setRecipeId(Intent intent, String extra) {
-        recipeId = intent.getIntExtra(extra, -1);
-    }
-
-    private void setRecipeTitle(Intent intent, String extra) {
-        recipeTitle = intent.getStringExtra(extra);
     }
 }

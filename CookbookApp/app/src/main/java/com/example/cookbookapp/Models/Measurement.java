@@ -20,6 +20,18 @@ public class Measurement {
         this.consistency = consistency;
     }
 
+    public String getIngredientTitle() {
+        return ingredientTitle;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getConsistency() {
+        return consistency;
+    }
+
     @NonNull
     @Override
     public String toString() {

@@ -1,7 +1,9 @@
 package com.example.cookbookapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -63,8 +65,22 @@ public class VerificationActivity extends AppCompatActivity {
                 } else {
                     Helper.clearErrorField(editTextVerificationCode);
                     String verificationCode = editTextVerificationCode.getText().toString();
-                    VerificationRequest request = new VerificationRequest(user, verificationCode);
-                    sendRequest(request);
+                    final VerificationRequest request = new VerificationRequest(user, verificationCode);
+                    AlertDialog.Builder adBuilder = new AlertDialog.Builder(VerificationActivity.this);
+                    adBuilder.setTitle(R.string.verification_dialog_title);
+                    adBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendRequest(request);
+                        }
+                    });
+                    adBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog ad = adBuilder.create();
+                    ad.show();
                 }
             }
         });
@@ -95,7 +111,6 @@ public class VerificationActivity extends AppCompatActivity {
                     intent.putExtra(EXTRA_REGISTRATION_OK, request.getUserViewModel().getUsername());
                     startActivity(intent);
                 }
-
             }
 
             @Override
