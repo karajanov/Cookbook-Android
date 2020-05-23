@@ -2,13 +2,14 @@ package com.example.cookbookapp.Utility;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Helper {
+public class Validator {
 
     public static final String RECIPES_API_BASE = "http://localhost:5000/api/";
     public static final String IMAGE_API_URL = "http://localhost:5000/images/";
@@ -32,6 +33,15 @@ public class Helper {
         if(editText == null)
             return;
         editText.setError(null);
+    }
+
+    public static void clearErrorField(ArrayList<EditText> editTextList) {
+        if(editTextList == null) {
+            return;
+        }
+        for(EditText et : editTextList) {
+            clearErrorField(et);
+        }
     }
 
     public static boolean isEmailValid(EditText editTextEmail) {
@@ -124,4 +134,5 @@ public class Helper {
         }
         return s;
     }
+
 }

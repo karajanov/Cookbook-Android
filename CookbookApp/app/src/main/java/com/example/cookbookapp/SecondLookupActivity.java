@@ -36,7 +36,7 @@ implements RecipePreviewAdapter.OnItemClickListener {
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private int selectedFilter = 1;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef;
     private RecipePreviewAdapter recipePreviewAdapter;
 
@@ -90,7 +90,7 @@ implements RecipePreviewAdapter.OnItemClickListener {
             public void onClick(View v) {
                 String searchTerm = editTextSearch.getText().toString();
                 hideKeyboard();
-                Helper.removeFocus(editTextSearch);
+                Validator.removeFocus(editTextSearch);
                 if(!TextUtils.isEmpty(searchTerm)) {
                     progressBar.setVisibility(View.VISIBLE);
                     displayRecipePreviews(searchTerm);

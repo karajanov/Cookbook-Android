@@ -34,6 +34,7 @@ public class UserRecipesActivity extends AppCompatActivity {
 
         displayUsernameInTextView();
         displayEditMessageIfNecessary(intent, InsertRecipesActivity.EXTRA_INSERT_SUCCESS);
+        displayEditMessageIfNecessary(intent, UpdateRecipeActivity.EXTRA_UPDATE_SUCCESS);
         displayEditMessageIfNecessary(intent, DeleteRecipeActivity.EXTRA_DELETE_SUCCESS);
         redirectToActivity(insertDestBtn, InsertRecipesActivity.class);
         redirectToActivity(editDestBtn, EditPreviewActivity.class);

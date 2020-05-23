@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,8 @@ import com.example.cookbookapp.Models.Measurement;
 import com.example.cookbookapp.Models.Recipe;
 import com.example.cookbookapp.Models.RegularStatus;
 import com.example.cookbookapp.Utility.FileUtils;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.ImageUtils;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 import com.example.cookbookapp.Utility.UserSession;
 import com.google.gson.Gson;
@@ -52,13 +54,13 @@ public class InsertRecipesActivity extends AppCompatActivity {
     public static final int MIN_LENGTH_INSTRUCTIONS = 15;
 
     private static final int CHOOSE_IMAGE_REQUEST = 1;
-    private static final long MAX_IMAGE_BYTES = 1572864; // 1.5 MB
+
     private ConstraintLayout layout;
     private TextView textViewListOfIngredients, textViewImage;
     private Button chooseImageBtn, addToListBtn, viewListBtn, confirmInsertBtn, removeImgBtn;
     private EditText editTextTitle, editTextPrepTime, editTextCuisine, editTextCategory, editTextInstructions;
     private EditText editTextIngredient, editTextQuantity, editTextConsistency;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef = rb.create(IRecipesApi.class);
     private Uri imageUri;
     private ArrayList<Measurement> msList;
@@ -145,21 +147,21 @@ public class InsertRecipesActivity extends AppCompatActivity {
         addToListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Helper.isFieldEmpty(editTextIngredient)) {
-                    Helper.displayErrorMessage(editTextIngredient, "Empty field not allowed");
+                if (Validator.isFieldEmpty(editTextIngredient)) {
+                    Validator.displayErrorMessage(editTextIngredient, "Empty field not allowed");
                     return;
                 }
-                if (!Helper.hasMinLengthTestPassed(editTextIngredient, MIN_LENGTH)) {
+                if (!Validator.hasMinLengthTestPassed(editTextIngredient, MIN_LENGTH)) {
                     return;
                 }
-                if (!Helper.hasOptionalFieldMinLengthTestPassed(editTextConsistency, MIN_LENGTH)) {
+                if (!Validator.hasOptionalFieldMinLengthTestPassed(editTextConsistency, MIN_LENGTH)) {
                     return;
                 }
                 String ingredient = editTextIngredient.getText().toString();
-                String quantity = Helper.setToNullIfEmpty(editTextQuantity
+                String quantity = Validator.setToNullIfEmpty(editTextQuantity
                         .getText()
                         .toString());
-                String consistency = Helper.setToNullIfEmpty(editTextConsistency
+                String consistency = Validator.setToNullIfEmpty(editTextConsistency
                         .getText()
                         .toString());
                 Measurement ms = new Measurement(ingredient, quantity, consistency);
@@ -215,49 +217,49 @@ public class InsertRecipesActivity extends AppCompatActivity {
         confirmInsertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Helper.hasEmptyFieldTestPassed(requiredEditTextList)) {
+                if(!Validator.hasEmptyFieldTestPassed(requiredEditTextList)) {
                     return;
                 }
-                if(!Helper.hasMinLengthTestPassed(editTextTitle, MIN_LENGTH)) {
+                if(!Validator.hasMinLengthTestPassed(editTextTitle, MIN_LENGTH)) {
                     return;
                 }
-                if(!Helper.hasMinLengthTestPassed(editTextInstructions, MIN_LENGTH_INSTRUCTIONS)) {
+                if(!Validator.hasMinLengthTestPassed(editTextInstructions, MIN_LENGTH_INSTRUCTIONS)) {
                     return;
                 }
-                if(!Helper.hasOptionalFieldMinLengthTestPassed(editTextPrepTime, MIN_LENGTH)) {
+                if(!Validator.hasOptionalFieldMinLengthTestPassed(editTextPrepTime, MIN_LENGTH)) {
                     return;
                 }
-                if(!Helper.hasOptionalFieldMinLengthTestPassed(editTextCuisine, MIN_LENGTH)) {
+                if(!Validator.hasOptionalFieldMinLengthTestPassed(editTextCuisine, MIN_LENGTH)) {
                     return;
                 }
-                if(!Helper.hasOptionalFieldMinLengthTestPassed(editTextCategory, MIN_LENGTH)) {
+                if(!Validator.hasOptionalFieldMinLengthTestPassed(editTextCategory, MIN_LENGTH)) {
                     return;
                 }
                 if(msList.size() == 0) {
-                    Helper.displayErrorMessage(editTextIngredient, "At least one measurement required");
+                    Validator.displayErrorMessage(editTextIngredient, getString(R.string.measurements_min_size_error_msg));
                     return;
                 }
-                Helper.clearErrorField(editTextIngredient);
-                if(imageUri != null && imageSize > MAX_IMAGE_BYTES) {
-                    String sizeMsg = "Size of image exceeded max size of 1.5 MB";
+                Validator.clearErrorField(editTextIngredient);
+                if(imageUri != null && imageSize > ImageUtils.MAX_IMAGE_BYTES) {
+                    String sizeMsg = getString(R.string.exceeded_img_size_error_msg);
                     Toast.makeText(InsertRecipesActivity.this, sizeMsg, Toast.LENGTH_LONG).show();
                     return;
                 }
                 SharedPreferences sp = getSharedPreferences(UserSession.SHARED_PREFS, MODE_PRIVATE);
                 String currentUser = UserSession.getUser(sp);
                 if(currentUser == null) {
-                    String msg = "Must be logged in to insert a recipe";
+                    String msg = getString(R.string.insert_recipe_logged_in_error_msg);
                     Toast.makeText(InsertRecipesActivity.this, msg, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 String recipeTitle = editTextTitle.getText().toString();
-                String prep = Helper.setToNullIfEmpty(editTextPrepTime
+                String prep = Validator.setToNullIfEmpty(editTextPrepTime
                         .getText()
                         .toString());
-                String cuisine = Helper.setToNullIfEmpty(editTextCuisine
+                String cuisine = Validator.setToNullIfEmpty(editTextCuisine
                         .getText()
                         .toString());
-                String category = Helper.setToNullIfEmpty(editTextCategory
+                String category = Validator.setToNullIfEmpty(editTextCategory
                         .getText()
                         .toString());
                 String instructions = editTextInstructions.getText().toString();
@@ -271,7 +273,7 @@ public class InsertRecipesActivity extends AppCompatActivity {
                 adBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        confirmRecipeInsertion(recipe, msList);
+                        startRequestForRecipeInsert(recipe, msList);
                     }
                 });
                 adBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -285,13 +287,13 @@ public class InsertRecipesActivity extends AppCompatActivity {
         });
     }
 
-    private void confirmRecipeInsertion(Recipe recipe, ArrayList<Measurement> measurementList) {
+    private void startRequestForRecipeInsert(Recipe recipe, ArrayList<Measurement> measurementList) {
 
         MultipartBody.Part imgFile = null;
 
         if (imageUri != null) {
             File originalFile = FileUtils.getFile(InsertRecipesActivity.this, imageUri);
-            imgFile = getImageAsMultipart(originalFile);
+            imgFile = ImageUtils.getImageAsMultipart(originalFile);
         }
 
         RequestBody recipeRbody = RequestBody.create(MultipartBody.FORM, gsonConverter.toJson(recipe));
@@ -327,14 +329,6 @@ public class InsertRecipesActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private MultipartBody.Part getImageAsMultipart(File originalFile) {
-        RequestBody filePart = RequestBody.create(MediaType.parse("image/*"), originalFile);
-        MultipartBody.Part file = MultipartBody.Part
-                .createFormData("image", originalFile.getName(), filePart);
-
-        return file;
     }
 
     private void removeImageEventHandler() {

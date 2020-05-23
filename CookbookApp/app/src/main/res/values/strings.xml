@@ -74,4 +74,16 @@
     <string name="registration_dialog_title">Are you sure you want to register a new account?</string>
     <string name="verification_dialog_title">Are you sure you inserted the correct code?</string>
     <string name="measurements">Measurements</string>
+    <string name="open_form">OPEN FORM</string>
+    <string name="close_form">CLOSE FORM</string>
+    <string name="none">None</string>
+    <string name="keep_current">Keep current</string>
+    <string name="update_current_item_error_msg">If the current item is not kept, a new one must be inserted</string>
+    <string name="empty_field_error_msg">Empty field not allowed</string>
+    <string name="measurements_min_size_error_msg">At least one measurement is required</string>
+    <string name="exceeded_img_size_error_msg">Size of image exceeded max size of 1.5 MB</string>
+    <string name="insert_recipe_logged_in_error_msg">Must be logged in to insert a recipe</string>
+    <string name="update_recipe_logged_in_error_msg">Must be logged in to update a recipe</string>
+    <string name="ms_adapter_error_msg">An error occurred with the measurements adapter</string>
+    <string name="update_recipe_dialog_title">Are you sure you want to update this recipe?</string>
 </resources>

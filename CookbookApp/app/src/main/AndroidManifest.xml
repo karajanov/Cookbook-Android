@@ -19,7 +19,8 @@
             android:parentActivityName=".EditPreviewActivity"/>
         <activity
             android:name=".UpdateRecipeActivity"
-            android:parentActivityName=".EditPreviewActivity"/>
+            android:parentActivityName=".EditPreviewActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".EditPreviewActivity"
             android:parentActivityName=".UserRecipesActivity"/>

@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 public class Measurement {
 
+    private int id;
+
     private String ingredientTitle;
 
     private String quantity;
@@ -18,6 +20,14 @@ public class Measurement {
         this.ingredientTitle = ingredientTitle;
         this.quantity = quantity;
         this.consistency = consistency;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIngredientTitle() {

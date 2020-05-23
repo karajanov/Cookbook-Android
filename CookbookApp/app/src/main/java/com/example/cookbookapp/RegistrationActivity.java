@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cookbookapp.Interfaces.IUserApi;
 import com.example.cookbookapp.Models.User;
 import com.example.cookbookapp.Models.VerificationStatus;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextUsername, editTextPassword, editTextRe;
     private ArrayList<EditText> editTextList;
     private Button confirmRegistrationBtn;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IUserApi userApiRef = rb.create(IUserApi.class);
 
     @Override
@@ -64,15 +64,15 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmRegistrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!Helper.hasEmptyFieldTestPassed(editTextList))
+                if (!Validator.hasEmptyFieldTestPassed(editTextList))
                     return;
-                if (!Helper.hasEmailTestPassed(editTextEmail))
+                if (!Validator.hasEmailTestPassed(editTextEmail))
                     return;
-                if (!Helper.hasMinLengthTestPassed(editTextUsername, Helper.MIN_USERNAME_LENGTH))
+                if (!Validator.hasMinLengthTestPassed(editTextUsername, Validator.MIN_USERNAME_LENGTH))
                     return;
-                if (!Helper.hasMinLengthTestPassed(editTextPassword, Helper.MIN_PASSWORD_LENGTH))
+                if (!Validator.hasMinLengthTestPassed(editTextPassword, Validator.MIN_PASSWORD_LENGTH))
                     return;
-                if (!Helper.hasPasswordMatchTestPassed(editTextPassword, editTextRe))
+                if (!Validator.hasPasswordMatchTestPassed(editTextPassword, editTextRe))
                     return;
 
                 checkEmailAvailability();
@@ -99,10 +99,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
                 Boolean isTaken = response.body();
                 if(isTaken == null || isTaken) {
-                    Helper.displayErrorMessage(editTextEmail,
+                    Validator.displayErrorMessage(editTextEmail,
                             editTextEmail.getText().toString() + " is taken");
                 } else {
-                    Helper.clearErrorField(editTextEmail);
+                    Validator.clearErrorField(editTextEmail);
                     checkUsernameAvailability();
                 }
             }
@@ -125,9 +125,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
                 Boolean isTaken = response.body();
                 if(isTaken == null || isTaken) {
-                    Helper.displayErrorMessage(editTextUsername, editTextUsername.getText().toString() + " is taken");
+                    Validator.displayErrorMessage(editTextUsername, editTextUsername.getText().toString() + " is taken");
                 } else {
-                    Helper.clearErrorField(editTextUsername);
+                    Validator.clearErrorField(editTextUsername);
                     String email = editTextEmail.getText().toString();
                     String username = editTextUsername.getText().toString();
                     String password = editTextPassword.getText().toString();

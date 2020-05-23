@@ -13,11 +13,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cookbookapp.Interfaces.IRecipesApi;
 import com.example.cookbookapp.Models.RecipePreview;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.RecipePreviewAdapter;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 import com.example.cookbookapp.Utility.UserSession;
@@ -39,7 +38,7 @@ public class EditPreviewActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private TextView textViewRecipeCount;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef = rb.create(IRecipesApi.class);
     private RecipePreviewAdapter recipePreviewAdapter;
     private String selectedOption = "update";

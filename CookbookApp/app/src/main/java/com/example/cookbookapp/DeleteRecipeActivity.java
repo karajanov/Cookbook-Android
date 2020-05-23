@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.cookbookapp.Interfaces.IRecipesApi;
 import com.example.cookbookapp.Models.RegularStatus;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 
 import retrofit2.Call;
@@ -30,7 +30,7 @@ public class DeleteRecipeActivity extends AppCompatActivity {
     private TextView textViewRecipeTitle;
     private Button btnDeleteRecipe;
     private int recipeId;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IRecipesApi recipeApiRef = rb.create(IRecipesApi.class);
 
     @Override

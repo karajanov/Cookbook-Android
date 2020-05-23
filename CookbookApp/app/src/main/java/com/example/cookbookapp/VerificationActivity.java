@@ -18,7 +18,7 @@ import com.example.cookbookapp.Interfaces.IUserApi;
 import com.example.cookbookapp.Models.User;
 import com.example.cookbookapp.Models.VerificationRequest;
 import com.example.cookbookapp.Models.VerificationStatus;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 
 import retrofit2.Call;
@@ -33,7 +33,7 @@ public class VerificationActivity extends AppCompatActivity {
     private EditText editTextVerificationCode;
     private Button confirmRegistrationBtn;
     private TextView textViewVerificationInfo;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IUserApi userApiRef = rb.create(IUserApi.class);
     private User user;
 
@@ -60,10 +60,10 @@ public class VerificationActivity extends AppCompatActivity {
         confirmRegistrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Helper.isFieldEmpty(editTextVerificationCode)) {
-                    Helper.displayErrorMessage(editTextVerificationCode, "Empty field not allowed");
+                if(Validator.isFieldEmpty(editTextVerificationCode)) {
+                    Validator.displayErrorMessage(editTextVerificationCode, "Empty field not allowed");
                 } else {
-                    Helper.clearErrorField(editTextVerificationCode);
+                    Validator.clearErrorField(editTextVerificationCode);
                     String verificationCode = editTextVerificationCode.getText().toString();
                     final VerificationRequest request = new VerificationRequest(user, verificationCode);
                     AlertDialog.Builder adBuilder = new AlertDialog.Builder(VerificationActivity.this);

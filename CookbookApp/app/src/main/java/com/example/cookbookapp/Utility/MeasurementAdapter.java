@@ -10,18 +10,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cookbookapp.Models.Measurement;
+import com.example.cookbookapp.Models.RecipePreview;
 import com.example.cookbookapp.R;
 
 import java.util.List;
 
-public class MeasurementAdapter extends  RecyclerView.Adapter<MeasurementAdapter.MeasurementViewHolder> {
+public class MeasurementAdapter extends RecyclerView.Adapter<MeasurementAdapter.MeasurementViewHolder> {
 
     private Context context;
     private List<Measurement> measurementList;
+    private OnItemClickListener clickListener;
 
     public MeasurementAdapter(Context context, List<Measurement> measurementList) {
         this.context = context;
         this.measurementList = measurementList;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public List<Measurement> getMeasurementList() {
+        return measurementList;
     }
 
     @NonNull
@@ -35,14 +45,14 @@ public class MeasurementAdapter extends  RecyclerView.Adapter<MeasurementAdapter
 
     @Override
     public void onBindViewHolder(@NonNull MeasurementViewHolder holder, int position) {
-           Measurement currentItem = measurementList.get(position);
-           String ingredient = currentItem.getIngredientTitle();
-           String quantity = currentItem.getQuantity();
-           String consistency = currentItem.getConsistency();
+        Measurement currentItem = measurementList.get(position);
+        String ingredient = currentItem.getIngredientTitle();
+        String quantity = currentItem.getQuantity();
+        String consistency = currentItem.getConsistency();
 
-           holder.textViewIngredient.setText("Ingredient: " + ingredient);
-           holder.textViewQuantity.setText("Quantity: " + quantity);
-           holder.textViewConsistency.setText("Consistency: " + consistency);
+        holder.textViewIngredient.setText("Ingredient: " + ingredient);
+        holder.textViewQuantity.setText("Quantity: " + quantity);
+        holder.textViewConsistency.setText("Consistency: " + consistency);
     }
 
     @Override
@@ -59,6 +69,22 @@ public class MeasurementAdapter extends  RecyclerView.Adapter<MeasurementAdapter
             textViewIngredient = (TextView) itemView.findViewById(R.id.text_view_card_ingredient);
             textViewQuantity = (TextView) itemView.findViewById(R.id.text_view_card_quantity);
             textViewConsistency = (TextView) itemView.findViewById(R.id.text_view_card_consistency);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (clickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            clickListener.onItemClick(position, measurementList);
+                        }
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, List<Measurement> msList);
     }
 }

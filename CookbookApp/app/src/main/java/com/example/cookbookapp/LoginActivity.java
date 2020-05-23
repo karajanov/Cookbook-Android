@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.cookbookapp.Interfaces.IUserApi;
 import com.example.cookbookapp.Models.LoginCredentials;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 import com.example.cookbookapp.Utility.UserSession;
 
@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUsername, editTextPassword;
     private ArrayList<EditText> editTextList;
     private Button signInButton;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IUserApi userApiRef = rb.create(IUserApi.class);
 
     @Override
@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Helper.hasEmptyFieldTestPassed(editTextList))
+                if(!Validator.hasEmptyFieldTestPassed(editTextList))
                     return;
                 String username = editTextUsername.getText().toString();
                 String plainPassword = editTextPassword.getText().toString();

@@ -53,7 +53,7 @@ public class RecipePreviewAdapter extends RecyclerView.Adapter<RecipePreviewAdap
 
         if(imagePath != null) {
             Glide.with(context)
-                    .load(Helper.IMAGE_API_URL + imagePath)
+                    .load(Validator.IMAGE_API_URL + imagePath)
                     .error(R.drawable.notfound)
                     .fitCenter()
                     .centerInside()

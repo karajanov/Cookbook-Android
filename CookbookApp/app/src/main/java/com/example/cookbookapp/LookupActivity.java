@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cookbookapp.Interfaces.IRecipesApi;
 import com.example.cookbookapp.Models.RecipePreview;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.RecipePreviewAdapter;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 
@@ -40,7 +40,7 @@ public class LookupActivity extends AppCompatActivity
     private RadioGroup radioGroupFilter;
     private TextView groupLabel;
     private Spinner itemSpinner;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef;
     private ProgressBar progressBar;
     private Button buttonSearh;

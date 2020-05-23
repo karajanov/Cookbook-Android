@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menu_item_hide_keyboard"
         android:title="@string/hide_keyboard"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_item_clear_all"

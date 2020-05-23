@@ -8,15 +8,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookbookapp.Interfaces.IRecipesApi;
 import com.example.cookbookapp.Models.FullRecipeInfo;
 import com.example.cookbookapp.Models.Measurement;
-import com.example.cookbookapp.Utility.Helper;
+import com.example.cookbookapp.Utility.Validator;
 import com.example.cookbookapp.Utility.MeasurementAdapter;
 import com.example.cookbookapp.Utility.RetrofitBuilder;
 
@@ -35,7 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
             textViewInstructions, textViewMeasurements;
     private RecyclerView recyclerViewMeasurements;
     private MeasurementAdapter measurementAdapter;
-    private Retrofit rb = RetrofitBuilder.getBuilder(Helper.RECIPES_API_BASE);
+    private Retrofit rb = RetrofitBuilder.getBuilder(Validator.RECIPES_API_BASE);
     private IRecipesApi recipesApiRef = rb.create(IRecipesApi.class);
 
     @Override
